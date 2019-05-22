@@ -45,7 +45,7 @@ export default {
       margin-right 1rem
       .setting
         display inline-block
-        margin-right .4rem
+        margin-right 1rem
 </style>
 
 

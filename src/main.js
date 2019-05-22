@@ -14,6 +14,8 @@ Vue.use(Vant);
 
 Vue.config.productionTip = false
 
+Vue.use(require('vue-wechat-title'))
+
 new Vue({
   router,
   store,
