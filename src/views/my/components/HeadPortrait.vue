@@ -3,7 +3,8 @@
     <img class="user-img" :src="headPortrait" alt="">
     <span class="user-name">{{name}}</span>
     <div class="head-oper">
-      <van-icon name="setting-o setting" />
+      <van-icon name="setting-o setting"
+                @click="goSetting" />
       <van-icon name="question-o" />
     </div>
   </div>  
@@ -17,7 +18,12 @@ export default {
       name: 'noTalent',
       headPortrait: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2975059141,2466776994&fm=27&gp=0.jpg'
     }
-  } 
+  },
+  methods: {
+    goSetting() {
+      this.$router.push('/setting')
+    }
+  }
 }
 </script>
 

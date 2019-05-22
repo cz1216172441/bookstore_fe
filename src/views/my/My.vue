@@ -1,10 +1,13 @@
 <template>
-  <div class="my" ref="wrapper">
-    <div class="content">
-      <head-portrait />
-      <order-selector />
-      <bs-nav-bar />
+  <div class="my">
+    <div class="wrapper" ref="wrapper">
+      <div class="content">
+        <head-portrait />
+        <order-selector />
+        <bs-nav-bar />
+      </div>
     </div>
+    <bs-nav-bar />
   </div>
 </template>
 

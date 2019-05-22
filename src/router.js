@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import store from './store/store'
 import Home from '@/views/home/Home'
 import My from '@/views/my/My'
+import Setting from '@/views/set/Setting'
 
 Vue.use(Router)
 
@@ -24,6 +25,10 @@ export default new Router({
         store.commit('SET_BSNAVBAR_STATUS', 3)
         next()
       }
+    }, {
+      path: '/setting',
+      name: 'setting',
+      component: Setting
     }
   ]
 })
