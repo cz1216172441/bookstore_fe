@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     goSetting() {
-      this.$router.push('/setting')
+      this.$router.push('/edit')
     }
   }
 }

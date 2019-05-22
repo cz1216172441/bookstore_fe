@@ -4,7 +4,6 @@
       <div class="content">
         <head-portrait />
         <order-selector />
-        <bs-nav-bar />
       </div>
     </div>
     <bs-nav-bar />
@@ -22,17 +21,6 @@ export default {
     BsNavBar,
     HeadPortrait,
     OrderSelector
-  },
-  mounted() {
-    this.$nextTick(() => {
-      if (!this.scroll) {
-        this.scroll = new BScroll(this.$refs.wrapper, {
-          click: true
-        })
-      } else {
-        this.scroll.refresh()
-      }
-    })
   }
 }
 </script>

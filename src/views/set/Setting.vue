@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     onClickLeft() {
-      this.$router.push('/my')
+      this.$router.push('/user')
     }
   }
 }
@@ -98,6 +98,7 @@ export default {
       border-radius 1rem
     .head-arrow
       line-height 2rem
+      margin-left .4rem
       color rgba(0, 0, 0, .5)
   .logout
     position absolute

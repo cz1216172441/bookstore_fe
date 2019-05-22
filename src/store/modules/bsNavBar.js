@@ -9,7 +9,7 @@
 import { SET_BSNAVBAR_STATUS } from './../mutation-types'
 
 // 路由路径
-const urls = ['/', '/new', '/cart', '/my']
+const urls = ['/', '/new', '/cart', '/user']
 // icon类名
 const icons = [
   '#icon-zhuye',
