@@ -1,10 +1,10 @@
 /**
  * User Module
  */
-import user from '../../api/user'
-import router from '../../router'
+import user from '@/common/api/user'
+import router from '@/router'
 
-const token = ''
+const token = sessionStorage.getItem('token')
 
 export default {
 

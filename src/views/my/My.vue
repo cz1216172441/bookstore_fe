@@ -12,7 +12,7 @@
 
 <script>
 import BScroll from 'better-scroll'
-import BsNavBar from '@/common/BsNavBar'
+import BsNavBar from '@/common/components/BsNavBar'
 import HeadPortrait from './components/HeadPortrait'
 import OrderSelector from './components/OrderSelector'
 export default {

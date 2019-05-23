@@ -1,25 +1,15 @@
 <template>
   <div class="login">
-    <img class="logo" :src="img">
-    <span class="bookstore-title">谦谦书城 QianQian</span>
-    <span class="login-title">Sign in to continue</span>
+    <bs-logo class="logo" />
     <div class="login-block">
-      <div class="login-cell">
-        <span class="login-label">用户名</span>
-        <input type="text" 
-          class="login-input"
-          v-bind="username"
-          placeholder="请输入用户名" />
-      </div>
-      <div class="login-cell">
-        <span class="login-label">
-            密&nbsp;&nbsp;&nbsp;码
-        </span>
-        <input type="password"
-          class="login-input"
-          v-bind="username"
-          placeholder="请输入密码" />
-      </div>
+      <bs-input type="text"
+        label="用户名"
+        v-model="username"
+        placeholder="请输入用户名" />
+      <bs-input type="password"
+        label="密码"
+        v-model="password"
+        placeholder="请输入密码" />
       <van-checkbox v-model="checked"
         class="login-remember">是否记住密码</van-checkbox>
       <span class="pass-alter">
@@ -28,17 +18,28 @@
         </router-link>
       </span>
     </div>
+    <van-button class="login-button" 
+      type="default">登 录</van-button>
+    <span class="register-label">
+      <router-link to="/register">新用户? 注册</router-link>
+    </span>
   </div>  
 </template>
 
 <script>
+import BsLogo from '@/common/components/BsLogo'
+import BsInput from '@/common/components/BsInput'
 export default {
   name: 'Login',
+  components: {
+    BsInput,
+    BsLogo
+  },
   data() {
     return {
       img: './logo.png',
       username: '',
-      passowrd: '',
+      password: '',
       checked: false
     }
   }
@@ -47,44 +48,19 @@ export default {
 
 <style lang="stylus">
   .login
+    display flex
+    flex-direction column
+    justify-content center
     width 100%
-    height 100%
+    height 100vh
     color #4c4c4c
     .logo
-      display block
-      margin 4rem 2rem
-      width 4rem
-      height 4rem
-    .bookstore-title
-      display block
-      margin -3rem 2rem
-      font-size 24px
-      font-weight 600
-    .login-title
-      display block
-      margin 3.6rem 2rem
-      color rgba(0, 0, 0, .4)
+      position absolute
+      top 3rem
     .login-block
       width auto
-      height 12rem
+      height 12.5rem
       margin 0 2rem
-      .login-cell
-        margin-top 1rem
-        .login-label
-          display block
-          height 2rem
-          line-height 2rem
-          font-size 16px
-          font-weight 600
-          letter-spacing .1rem
-        .login-input
-          box-sizing border-box
-          width 100%
-          padding 10px 0
-          font-size 13px
-          border 0
-          color rgba(0, 0, 0, .6)
-          border-bottom 1px solid rgba(0, 0, 0, .1)
       .login-remember
         display inline-block
         float left
@@ -106,7 +82,22 @@ export default {
         float right
         a
           color #6AAFE6
-  .van-checkbox__icon .van-icon
-    width 16px
-    height 16px
+    .login-button
+      position absolute
+      bottom 3.5rem
+      width 12rem
+      left 50%
+      transform translate(-50%, -50%)
+      color #fff
+      background linear-gradient(to right, rgba(253, 89, 113, .9), rgba(253, 138, 103, .9))
+      border 1px solid rgba(253, 138, 103, .9)
+    .register-label
+      position absolute
+      width 100%
+      text-align center
+      bottom 3.5rem
+      font-size 12px
+      a
+        color rgba(253, 89, 113, .6)
+        text-decoration underline
 </style>

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import BsNavBar from '@/common/BsNavBar'
+import BsNavBar from '@/common/components/BsNavBar'
 import HomeSelector from './components/HomeSeletor'
 import HomeSearchBox from './components/HomeSearchBox'
 import HomeRecommend from './components/HomeRecommend'
