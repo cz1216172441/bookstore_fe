@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <bs-logo class="re-logo" />
+    <bs-logo class="re-logo" tips="register" />
     <div class="register-block">
       <bs-input type="text"
         label="用户名"

@@ -1,35 +1,38 @@
 <template>
-  <div class="login">
-    <bs-logo class="logo" tips="login in" />
-    <div class="login-block">
-      <bs-input type="text"
-        label="用户名"
-        :value="username"
-        @valueChanged="usernameChanged"
-        placeholder="请输入用户名" />
-      <bs-input type="password"
-        label="密码"
-        :value="password"
-        @valueChanged="passwordChanged"
-        placeholder="请输入密码" />
-      <van-checkbox v-model="checked"
-        class="login-remember">是否记住密码</van-checkbox>
-      <span class="pass-alter">
-        <router-link to="/auth">
-          忘记密码
-        </router-link>
+  <div class="login" ref="wrapper">
+    <div class="content">
+      <bs-logo class="logo" tips="login in" />
+      <div class="login-block">
+        <bs-input type="text"
+          label="用户名"
+          :value="username"
+          @valueChanged="usernameChanged"
+          placeholder="请输入用户名" />
+        <bs-input type="password"
+          label="密码"
+          :value="password"
+          @valueChanged="passwordChanged"
+          placeholder="请输入密码" />
+        <van-checkbox v-model="checked"
+          class="login-remember">是否记住密码</van-checkbox>
+        <span class="pass-alter">
+          <router-link to="/auth">
+            忘记密码
+          </router-link>
+        </span>
+      </div>
+      <bs-button class="login-button" 
+        label="登 录"
+        @click.native="userLogin" />
+      <span class="register-label">
+        <router-link to="/register">新用户? 注册</router-link>
       </span>
     </div>
-    <bs-button class="login-button" 
-      label="登 录"
-      @click.native="userLogin" />
-    <span class="register-label">
-      <router-link to="/register">新用户? 注册</router-link>
-    </span>
   </div>  
 </template>
 
 <script>
+import BScroll from 'better-scroll'
 import BsLogo from '@/common/components/BsLogo'
 import BsInput from '@/common/components/BsInput'
 import BsButton from '@/common/components/BsButton'
@@ -57,6 +60,15 @@ export default {
     ])
   },
   mounted() {
+    this.$nextTick(() => {
+      if (!this.scroll) {
+        this.scroll = new BScroll(this.$refs.wrapper, {
+          click: true
+        })
+      } else {
+        this.scroll.refresh()
+      }
+    })
     if (this.getUsername && this.getPassword) {
       this.username = getUsername
       this.password = getPassword
@@ -103,9 +115,6 @@ export default {
     width 100%
     height 100vh
     color #4c4c4c
-    .logo
-      position absolute
-      top 3rem
     .login-block
       width auto
       height 12.5rem
@@ -132,12 +141,10 @@ export default {
         a
           color #6AAFE6
     .login-button
-      position absolute
-      bottom 3.5rem
-      left 50%
-      transform translate(-50%, -50%)
+      margin-top 3rem
     .register-label
-      position absolute
+      display inline-block
+      margin 1rem auto
       width 100%
       text-align center
       bottom 3.5rem
