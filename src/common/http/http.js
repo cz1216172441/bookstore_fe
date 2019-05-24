@@ -7,13 +7,15 @@
 import axios from 'axios'
 import store from '@/store/store'
 import router from '@/router'
+import { Toast } from 'vant';
+import qs from 'qs'
 
 
 /* axios请求超时时间 */
 axios.defaults.timeout = 5000
 
 /* post请求头 */
-axios.defaults.headers.post['Content-Type'] = 'application/json'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 /* axios请求拦截器 */
 axios.interceptors.request.use(config => {
@@ -22,18 +24,19 @@ axios.interceptors.request.use(config => {
   if (token) {
     config.headers.Token = token
   }
+  return config
 })
 
 /* response拦截器 */
 axios.interceptors.response.use(res => {
   if (res.data.code !== undefined) {
-    if (res.data.code !== 0) {
-      return
-    } else {
-      return res.data
+    if (res.data.code === -1) {
+      Toast.fail('请登录用户')
+      router.push('/login')
     }
+    return res.data
   } else {
-      return res.data
+    return res.data
   }
 }, err => {
   if (err.response) {
@@ -47,6 +50,7 @@ axios.interceptors.response.use(res => {
           })
     }
   } 
+  console.log(err)
   return Promise.reject(err.response)
 })
 
@@ -61,7 +65,7 @@ export function http({method, url, params}) {
 
 function get(url, params) {
   return new Promise((resolve, reject) => {
-    axios.get(url, params)
+    axios.get(url, {params: params})
     .then((res) => {
       resolve(res)
     }).catch((err) => {
@@ -72,7 +76,7 @@ function get(url, params) {
 
 function post(url, params) {
   return new Promise((resolve, reject) => {
-    axios.post(url, JSON.stringify(params))
+    axios.post(url, qs.stringify(params))
     .then(res => {
       resolve(res)
     })

@@ -4,6 +4,7 @@ import store from './store/store'
 import Home from '@/views/home/Home'
 import My from '@/views/my/My'
 import Login from '@/views/login/Login'
+import Register from '@/views/register/Register'
 import Setting from '@/views/set/Setting'
 
 Vue.use(Router)
@@ -22,6 +23,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    }, {
+      // 注册页面
+      path: '/register',
+      name: 'register',
+      component: Register
     }, {
       // 用户页面
       path: '/user',

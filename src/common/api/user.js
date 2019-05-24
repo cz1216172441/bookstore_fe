@@ -26,11 +26,20 @@ export default {
 
   /* 登录 */
   login(params) {
-    console.log(http({
+    return http({
       method: 'Get',
       url: loginUrl,
       params: params
-    }))
+    })
+  },
+
+  /* 注册 */
+  register(params) {
+    return http({
+      method: 'Post',
+      url: registerUrl,
+      params: params
+    })
   }
 
 }

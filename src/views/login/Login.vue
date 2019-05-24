@@ -1,14 +1,16 @@
 <template>
   <div class="login">
-    <bs-logo class="logo" />
+    <bs-logo class="logo" tips="login in" />
     <div class="login-block">
       <bs-input type="text"
         label="用户名"
-        v-model="username"
+        :value="username"
+        @valueChanged="usernameChanged"
         placeholder="请输入用户名" />
       <bs-input type="password"
         label="密码"
-        v-model="password"
+        :value="password"
+        @valueChanged="passwordChanged"
         placeholder="请输入密码" />
       <van-checkbox v-model="checked"
         class="login-remember">是否记住密码</van-checkbox>
@@ -18,8 +20,9 @@
         </router-link>
       </span>
     </div>
-    <van-button class="login-button" 
-      type="default">登 录</van-button>
+    <bs-button class="login-button" 
+      label="登 录"
+      @click.native="userLogin" />
     <span class="register-label">
       <router-link to="/register">新用户? 注册</router-link>
     </span>
@@ -29,11 +32,15 @@
 <script>
 import BsLogo from '@/common/components/BsLogo'
 import BsInput from '@/common/components/BsInput'
+import BsButton from '@/common/components/BsButton'
+import { checkOutLoginParams } from '@/common/utils/check.js'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Login',
   components: {
     BsInput,
-    BsLogo
+    BsLogo,
+    BsButton
   },
   data() {
     return {
@@ -41,6 +48,48 @@ export default {
       username: '',
       password: '',
       checked: false
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'getUsername',
+      'getPassword'
+    ])
+  },
+  mounted() {
+    if (this.getUsername && this.getPassword) {
+      this.username = getUsername
+      this.password = getPassword
+      this.checked = true
+    }
+  },
+  methods: {
+    ...mapActions([
+      'login'
+    ]),
+
+    /**
+     * 用户登录
+     */
+    userLogin() {
+      const params = {
+        'username': this.username,
+        'password': this.password
+      }
+      if (checkOutLoginParams(params)) {
+        this.login(params, this.checked)
+      }
+    },
+
+    /** 
+     * 自定义输入框组件
+     * 双向数据绑定
+     */
+    usernameChanged(model) {
+      this.username = model
+    },
+    passwordChanged(model) {
+      this.password = model
     }
   }
 }
@@ -85,12 +134,8 @@ export default {
     .login-button
       position absolute
       bottom 3.5rem
-      width 12rem
       left 50%
       transform translate(-50%, -50%)
-      color #fff
-      background linear-gradient(to right, rgba(253, 89, 113, .9), rgba(253, 138, 103, .9))
-      border 1px solid rgba(253, 138, 103, .9)
     .register-label
       position absolute
       width 100%

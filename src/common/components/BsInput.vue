@@ -1,12 +1,13 @@
 <template>
   <!-- 输入框通用组件 -->
   <div class="bs-input">
-    <span class="bs-input-label">
+    <span v-if="label" class="bs-input-label">
       {{label}}
     </span>
     <input class="bs-input-comp"
       :type="type"
-      v-model="value"
+      v-model="model"
+      @input="valueChanged"
       :placeholder="placeholder"/>
   </div>  
 </template>
@@ -17,12 +18,17 @@ export default {
   props: {
     type: String,
     label: String,
-    inputValue: String,
+    value: String,
     placeholder: String
   },
   data() {
     return {
-      value: this.inputValue
+      model: this.value
+    }
+  },
+  methods: {
+    valueChanged() {
+      this.$emit('valueChanged', this.model)
     }
   }
 }

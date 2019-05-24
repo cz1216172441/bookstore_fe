@@ -2,13 +2,16 @@
   <div class="bs-logo">
     <img class="logo" :src="img">
     <span class="bookstore-title">谦谦书城 QianQian</span>
-    <span class="login-title">Sign in to continue</span>
+    <span class="login-title">{{ tips }} to continue</span>
   </div>  
 </template>
 
 <script>
 export default {
   name: 'BsLogo',
+  props: {
+    tips: String
+  },
   data() {
     return {
       img: './logo.png'
