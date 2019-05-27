@@ -36,6 +36,8 @@ axios.interceptors.response.use(res => {
     }
     return res.data
   } else {
+    Toast.fail('请登录用户')
+    router.push('/login')
     return res.data
   }
 }, err => {

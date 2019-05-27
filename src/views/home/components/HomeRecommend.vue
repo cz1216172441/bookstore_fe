@@ -1,31 +1,48 @@
 <template>
   <div class="home-recommend" ref="wrapper">
     <ul class="content">
+      <!-- 广告列表 -->
       <li class="advertisement">
         <van-swipe :autoplay="2000" indicator-color="white">
-          <van-swipe-item v-for="(image, index) in images" :key="index">
-            <img class="adv-img" :src=image />
+          <van-swipe-item 
+            v-for="(image, index) in advertisements" 
+            :key="index">
+            <img class="adv-img" 
+              :src=image.img />
           </van-swipe-item>
         </van-swipe>
       </li>
+      <!-- 新品推荐 -->
+      <home-book-panel 
+        title="新品推荐"
+        :books="books" />
+      <div class="gray-space"></div>
+      <home-book-panel
+        title="热卖爆品"
+        :books="books" />
     </ul>
   </div>  
 </template>
 
 <script>
 import BScroll from 'better-scroll'
+import HomeBookPanel from './HomeBookPanel'
+import book from '@/common/api/book'
 export default {
   name: 'HomeRecommend',
+  components: {
+    HomeBookPanel
+  },
+  props: {
+    advertisements: Array
+  },
   data() {
     return {
-      images: [
-        'http://img60.ddimg.cn/upload_img/00087/geq/750x315_lyx_0517-1558089581.jpg',
-        'http://img63.ddimg.cn/upload_img/00678/zsts/750x315-1558317845.jpg',
-        'http://img52.ddimg.cn/9002790060970422.jpg',
-        'http://img63.ddimg.cn/upload_img/00316/by/750-315-1558090183.jpg',
-        'http://img63.ddimg.cn/upload_img/00749/xin/ts-750x315-1558255347.jpg'
-      ]
+      books: []
     }
+  },
+  created() {
+    this.listBookUpToDate()
   },
   mounted() {
     this.$nextTick(() => {
@@ -37,6 +54,21 @@ export default {
         this.scroll.refresh()
       }
     })
+  },
+  methods: {
+    // 获取新品推荐列表
+    listBookUpToDate() {
+      const params = {
+        pageNum: 1,
+        pageSize: 6
+      }
+      book.listBookUpToDate(params).then((res) => {
+        if (res.code === 0) {
+          const data = res.data
+          this.books = data
+        }
+      })
+    }
   }
 }
 </script>
@@ -53,5 +85,8 @@ export default {
       width 100%
       .adv-img
         width 100%
+    .gray-space
+      height .8rem
+      background-color #eee
 </style>
 

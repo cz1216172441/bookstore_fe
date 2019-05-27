@@ -1,6 +1,7 @@
 <template>
   <div class="bs-button">
     <van-button class="elegant" 
+      @click="click"
       type="default" >
       {{label}}
     </van-button>
@@ -11,7 +12,10 @@
 export default {
   name: 'BsButton',
   props: {
-    label: String
+    label: String,
+    click: {
+      type: Function
+    }
   }
 }
 </script>

@@ -2,7 +2,6 @@
  * User Module API
  */
 import { http } from './../http/http'
-import { Toast } from 'vant'
 import { host } from './host';
 
 /* user api */
@@ -38,6 +37,23 @@ export default {
     return http({
       method: 'Post',
       url: registerUrl,
+      params: params
+    })
+  },
+
+  /* 获取用户信息 */
+  getUserInfo() {
+    return http({
+      method: 'Get',
+      url: getUserInfoUrl
+    })
+  },
+
+  /* 修改用户信息 */
+  alterUserDetail(params) {
+    return http({
+      method: 'Post',
+      url: alterUserDetailUrl,
       params: params
     })
   }

@@ -19,11 +19,18 @@ export default {
     type: String,
     label: String,
     value: String,
-    placeholder: String
+    placeholder: String,
+    default: String,
+    checked: Boolean
   },
   data() {
     return {
       model: this.value
+    }
+  },
+  mounted() {
+    if (this.default && this.default != '') {
+      this.model = this.default
     }
   },
   methods: {

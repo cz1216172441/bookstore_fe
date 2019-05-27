@@ -2,8 +2,8 @@
   <div class="home">
     <home-search-box/>
     <home-selector/>
-    <home-recommend/>
-    <bs-nav-bar/>
+    <home-recommend :advertisements="advertisements" />
+    <bs-nav-bar />
   </div>
 </template>
 
@@ -12,6 +12,7 @@ import BsNavBar from '@/common/components/BsNavBar'
 import HomeSelector from './components/HomeSeletor'
 import HomeSearchBox from './components/HomeSearchBox'
 import HomeRecommend from './components/HomeRecommend'
+import advertisement from '@/common/api/advertisement'
 export default {
   name: 'Home',
   components: {
@@ -19,6 +20,25 @@ export default {
     HomeSearchBox,
     HomeSelector,
     HomeRecommend
+  },
+  data() {
+    return {
+      advertisements: []
+    }
+  },
+  created() {
+    this.listAdvertisement()
+  },
+  methods: {
+    // 获取广告列表
+    listAdvertisement() {
+      advertisement.listAdvertisement().then((res) => {
+        if (res.code === 0) {
+          const data = res.data
+          this.advertisements = data
+        }
+      })
+    }
   }
 }
 </script>

@@ -21,3 +21,11 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {
+    next('/login')
+  } else {
+    next()
+  }
+})

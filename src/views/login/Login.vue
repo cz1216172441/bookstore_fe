@@ -6,11 +6,13 @@
         <bs-input type="text"
           label="用户名"
           :value="username"
+          :default="getUsername"
           @valueChanged="usernameChanged"
           placeholder="请输入用户名" />
         <bs-input type="password"
           label="密码"
           :value="password"
+          :default="getPassword"
           @valueChanged="passwordChanged"
           placeholder="请输入密码" />
         <van-checkbox v-model="checked"
@@ -23,7 +25,7 @@
       </div>
       <bs-button class="login-button" 
         label="登 录"
-        @click.native="userLogin" />
+        :click="userLogin" />
       <span class="register-label">
         <router-link to="/register">新用户? 注册</router-link>
       </span>
@@ -37,7 +39,9 @@ import BsLogo from '@/common/components/BsLogo'
 import BsInput from '@/common/components/BsInput'
 import BsButton from '@/common/components/BsButton'
 import { checkOutLoginParams } from '@/common/utils/check.js'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
+import user from '@/common/api/user'
+import { Toast } from 'vant';
 export default {
   name: 'Login',
   components: {
@@ -55,8 +59,10 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'getToken',
       'getUsername',
-      'getPassword'
+      'getPassword',
+      'getRemembered'
     ])
   },
   mounted() {
@@ -68,16 +74,17 @@ export default {
       } else {
         this.scroll.refresh()
       }
+      this.username = this.getUsername
+      this.password = this.getPassword
+      this.checked = this.getRemembered
     })
-    if (this.getUsername && this.getPassword) {
-      this.username = getUsername
-      this.password = getPassword
-      this.checked = true
-    }
   },
   methods: {
-    ...mapActions([
-      'login'
+    ...mapMutations([
+      'SET_USERNAME',
+      'SET_PASSWORD',
+      'SET_REMEMBERED',
+      'SET_TOKEN'
     ]),
 
     /**
@@ -86,10 +93,30 @@ export default {
     userLogin() {
       const params = {
         'username': this.username,
-        'password': this.password
+        'password': this.password,
+        'remembered': this.checked
       }
       if (checkOutLoginParams(params)) {
-        this.login(params, this.checked)
+        user.login(params).then((res) => {
+          if (res.code === 0) {
+            Toast.success("登录成功", 1000)
+            const data = res.data
+            this.SET_TOKEN(data.token)
+            // 记住用户名与密码
+            if (params.remembered) {
+              this.SET_USERNAME(params.username)
+              this.SET_PASSWORD(params.password)
+              this.SET_REMEMBERED(params.remembered)
+            } else {
+              localStorage.removeItem('username')
+              localStorage.removeItem('password')
+              localStorage.removeItem('remembered')
+            }
+            this.$router.push('/')
+          } else {
+            Toast.fail("登录失败", 1000)
+          }
+        })
       }
     },
 
@@ -115,41 +142,42 @@ export default {
     width 100%
     height 100vh
     color #4c4c4c
-    .login-block
-      width auto
-      height 12.5rem
-      margin 0 2rem
-      .login-remember
-        display inline-block
-        float left
-        font-size 12px
-        margin-top 1rem
-        letter-spacing .04rem
-        .van-checkbox__label
-          color rgba(0, 0, 0, .4)
-          margin-left 0px
+    .content
+      .login-block
+        width auto
+        height 12.5rem
+        margin 0 2rem
+        .login-remember
+          display inline-block
+          float left
+          font-size 12px
+          margin-top 1rem
+          letter-spacing .04rem
+          .van-checkbox__label
+            color rgba(0, 0, 0, .4)
+            margin-left 0px
+            transform scale(.875)
+        .pass-alter
+          display inline-block
+          margin-top .3rem
+          height 40px
+          line-height 40px
+          font-size 12px
           transform scale(.875)
-      .pass-alter
+          letter-spacing .1rem
+          float right
+          a
+            color #6AAFE6
+      .login-button
+        margin-top 3rem
+      .register-label
         display inline-block
-        margin-top .3rem
-        height 40px
-        line-height 40px
+        margin 1rem auto
+        width 100%
+        text-align center
+        bottom 3.5rem
         font-size 12px
-        transform scale(.875)
-        letter-spacing .1rem
-        float right
         a
-          color #6AAFE6
-    .login-button
-      margin-top 3rem
-    .register-label
-      display inline-block
-      margin 1rem auto
-      width 100%
-      text-align center
-      bottom 3.5rem
-      font-size 12px
-      a
-        color rgba(253, 89, 113, .6)
-        text-decoration underline
+          color rgba(253, 89, 113, .6)
+          text-decoration underline
 </style>

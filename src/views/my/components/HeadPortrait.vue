@@ -1,7 +1,12 @@
 <template>
   <div class="head-portrait">
-    <img class="user-img" :src="headPortrait" alt="">
-    <span class="user-name">{{name}}</span>
+    <img class="user-img not-login"
+      v-if="!img || img === ''" 
+      :src="notLogin">
+    <img class="user-img" 
+      :src="img"
+      v-if="img && img!=''">
+    <span class="user-name">{{nickname}}</span>
     <div class="head-oper">
       <van-icon name="setting-o setting"
                 @click="goSetting" />
@@ -13,10 +18,20 @@
 <script>
 export default {
   name: 'HeadPortrait',
+  props: {
+    img: String,
+    nickname: String
+  },
+  computed: {
+    showed() {
+      if (this.img && this.img === '') {
+        return true
+      }
+    }
+  },
   data() {
     return {
-      name: 'noTalent',
-      headPortrait: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2975059141,2466776994&fm=27&gp=0.jpg'
+      notLogin: './not_login.png'
     }
   },
   methods: {

@@ -6,6 +6,7 @@ import My from '@/views/my/My'
 import Login from '@/views/login/Login'
 import Register from '@/views/register/Register'
 import Setting from '@/views/set/Setting'
+import BookDetail from '@/views/detail/BookDetail'
 
 Vue.use(Router)
 
@@ -43,6 +44,11 @@ export default new Router({
       path: '/edit',
       name: 'edit',
       component: Setting
+    }, {
+      // 图书详情页
+      path: '/detail/:id',
+      name: 'detail',
+      component: BookDetail
     }
   ]
 })
