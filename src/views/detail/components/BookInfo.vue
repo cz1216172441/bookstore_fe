@@ -10,10 +10,20 @@
         {{ current + 1 }}/{{ bookInfoImgs.length }}
       </div>
     </van-swipe>
-    <!-- <div class="info-space"></div> -->
-    <div class="actual-price">¥{{book.actualPrice}}</div>
+    <div class="info-price">
+      <span class="actual-price">
+        ¥{{book.actualPrice}}
+      </span>
+      <span class="original-price">
+        ¥{{book.originalPrice}}
+      </span>
+    </div>
     <div class="book-name">{{book.name}}</div>
     <div class="book-intro">{{book.intro}}</div>
+    <div class="book-aut-pub">
+      <span class="book-author">{{book.author}} 著</span>
+      <span class="book-publisher">{{book.publisher}}</span>
+    </div>
   </div>  
 </template>
 
@@ -60,29 +70,49 @@ export default {
           display block
           margin 0 auto
           width 100%
-    .info-space
+    .info-price
       width 100%
-      height .4rem
-      background #D09E88
-    .actual-price
+      height 2rem
+      background linear-gradient(to right, rgba(253, 89, 113, .9), rgba(253, 138, 103, .9))
+      .actual-price
+        height 2rem
+        line-height 2rem
+        padding-left .4rem
+        font-size 16px
+        color #fff
+      .original-price
+        font-size 12px
+        color #ffffff
+        text-decoration line-through 
+    .book-name
       height 2rem
       line-height 2rem
-      padding-left .4rem
-      font-size 18px
-      font-weight 600
-      color #f9320c
-    .book-name
       font-size 16px
       font-weight 600
       color #4c4c4c
       padding-left .4rem
     .book-intro
       font-size 12px
-      color rgba(0, 0, 0, .5)
-      margin-top .4rem
+      line-height 1rem
+      color rgba(0, 0, 0, .6)
       letter-spacing .01rem
       padding-left .4rem
       padding-right .4rem
+    .book-aut-pub
+      width 100%
+      height 1.4rem
+      line-height 1.4rem
+      font-size 12px
+      color #6f3826
+      border-bottom 1px solid #eee
+      .book-author
+        float left
+        display inline-block
+        padding-left .4rem
+      .book-publisher
+        float right
+        display inline-block
+        padding-right .6rem
   .custom-indicator
     position absolute
     right 5px

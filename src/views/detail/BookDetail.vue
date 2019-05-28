@@ -1,7 +1,13 @@
 <template>
-  <div class="book-detail" ref="wrapper">
-    <div class="content">
-      <book-info :book="book" />
+  <div class="book-detail">
+    <div class="book-wrapper" ref="wrapper">
+      <div class="content">
+        <book-info :book="book" />
+        <div class="detail-space"></div>
+        <book-selector :book="book" />
+        <div class="detail-space"></div>
+        <detail-show :img="book.detailImg" />
+      </div>
     </div>
     <bs-good-action class="detail-action" />
   </div>  
@@ -11,12 +17,16 @@
 import book from '@/common/api/book'
 import BScroll from 'better-scroll'
 import BookInfo from './components/BookInfo'
+import BookSelector from './components/BookSelector'
+import DetailShow from './components/DetailShow'
 import BsGoodAction from './components/BsGoodAction'
 export default {
   name: 'BookDetail',
   components: {
     BookInfo,
-    BsGoodAction
+    BsGoodAction,
+    BookSelector,
+    DetailShow
   },
   data() {
     return {
@@ -58,6 +68,18 @@ export default {
 <style lang="stylus" scoped>
   .book-detail
     width 100%
+    height 100vh
+    .book-wrapper
+      position fixed
+      top 0
+      left 0
+      bottom 3rem
+      width 100%
+      overflow hidden
+      .content
+        .detail-space
+          height .5rem
+          background #eee
     .detail-action
       position fixed
       bottom 0
