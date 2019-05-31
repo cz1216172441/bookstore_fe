@@ -13,6 +13,10 @@ const getBookByIdUrl = "/book/api/v1/book/get"                  // 获取图书�
 
 const listBookUpToDateUrl = "/book/api/v1/book/list"            // 获取新品推荐图书列表
 
+const listBookByCategoryUrl = "/book/api/v1/book-categoryId/list"   // 根据分类id获取图书列表
+
+const getCategoryNameUrl = "/book/api/v1/category-name/get"     // 获取图书分类名
+
 export default {
 
   // 获取图书一级分类列表
@@ -25,7 +29,7 @@ export default {
   },
 
   // 获取图书二级分类列表
-  listSecCategoryUrl(params) {
+  listSecCategory(params) {
     return http({
       method: 'Get',
       url: listSecCategoryUrl,
@@ -47,6 +51,24 @@ export default {
     return http({
       method: 'Get',
       url: getBookByIdUrl,
+      params: params
+    })
+  },
+
+  // 获取图书分类名
+  getCategoryName(params) {
+    return http({
+      method: 'Get',
+      url: getCategoryNameUrl,
+      params: params
+    })
+  },
+
+  // 根据分类id获取图书列表
+  listBookByCategory(params) {
+    return http({
+      method: 'Get',
+      url: listBookByCategoryUrl,
       params: params
     })
   }

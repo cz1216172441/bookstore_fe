@@ -4,7 +4,7 @@
       <div class="content">
         <book-info :book="book" />
         <div class="detail-space"></div>
-        <book-selector :book="book" />
+        <book-selector :book="detail" />
         <div class="detail-space"></div>
         <detail-show :img="book.detailImg" />
       </div>
@@ -30,13 +30,15 @@ export default {
   },
   data() {
     return {
-      book: {}
+      book: {},
+      detail: {}
     }
   },
   created() {
     this.getBookDetail()
   },
   mounted() {
+    // 滚动
     this.$nextTick(() => {
       if (!this.scroll) {
         this.scroll = new BScroll(this.$refs.wrapper, {
@@ -48,6 +50,7 @@ export default {
     })
   },
   methods: {
+    // 获取图书详情
     getBookDetail() {
       const id = this.$route.params.id
       const params = {
@@ -57,7 +60,19 @@ export default {
         if (res.code === 0) {
           const data = res.data
           this.book = data
-          console.log(data)
+          this.detail = data
+          if (data.infoImg.length > 1) {
+            this.detail['len'] = data.infoImg.length - 1
+            let arr = []
+            for (let i = 0; i < data.infoImg.length; i++) {
+              if (i > 0) {
+                arr.push(data.infoImg[i])
+              }
+            }
+            this.detail['infoImg'] = arr
+          } else {
+            this.detail['len'] = data.infoImg.length
+          }
         }
       })
     }

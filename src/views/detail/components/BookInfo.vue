@@ -2,12 +2,12 @@
   <div class="book-info">
     <van-swipe class="book-swipe" @change="onChange">
       <van-swipe-item class="book-swipe-item"
-        v-for="(img, index) in bookInfoImgs"
+        v-for="(img, index) in book.infoImg"
         :key="index">
         <img class="swipe-img" :src="img" />
       </van-swipe-item>
       <div class="custom-indicator" slot="indicator">
-        {{ current + 1 }}/{{ bookInfoImgs.length }}
+        {{ current + 1 }}/{{ book.len }}
       </div>
     </van-swipe>
     <div class="info-price">
@@ -39,20 +39,23 @@ export default {
     }
   },
   computed: {
-    bookInfoImgs() {
-      return this.getBookInfoImgs(this.book.infoImg)
+    getInfoImg() {
+      const arr = this.book.infoImg
+      if (arr.length > 1) {
+        arr.shift()
+      }
+      return arr
+    },
+
+    getImgLength() {
+      const arr = this.book.infoImg
+      if (arr != undefined) {
+        return arr.length
+      }
+      return 0
     }
   },
   methods: {
-    getBookInfoImgs(param) {
-      if (param && param.search(';')) {
-        let arr = param.split(';')
-        arr.shift()
-        return arr
-      }
-      return [].push(param)
-    },
-
     onChange(index) {
       this.current = index;
     }

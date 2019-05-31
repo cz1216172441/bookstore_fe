@@ -1,7 +1,9 @@
 <template>
   <div class="home-selector">
-    <span :class="recommend">推荐</span>
-    <span :class="selector" @click="categorySelector">
+    <span :class="recommend">{{title}}</span>
+    <span :class="selector" 
+      v-if="cateStatus"
+      @click="categorySelector">
       <span class="classify">分类</span>
       <van-icon class="down" :name="name" />
     </span>
@@ -11,6 +13,10 @@
 <script>
 export default {
   name: 'HomeSelector',
+  props: {
+    title: String,
+    cateStatus: Boolean
+  },
   data() {
     return {
       selected: false,
@@ -33,6 +39,7 @@ export default {
         this.selector = 'selector-cla act'
         this.selected = true
       }
+      this.$emit('categoryStatusChange', this.selected)
     }
   }
 }
@@ -50,9 +57,11 @@ export default {
     text-align center
     border-bottom 1px solid #e2e2e2
     .selector-rec
-      width 2rem
+      width auto
       float left
       margin-left .6rem
+      padding-left .2rem
+      padding-right .2rem
       padding-bottom .2rem
       color #4c4c4c
     .act

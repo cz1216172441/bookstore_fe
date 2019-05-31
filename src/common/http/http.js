@@ -29,6 +29,10 @@ axios.interceptors.request.use(config => {
 
 /* response拦截器 */
 axios.interceptors.response.use(res => {
+  if (res === undefined) {
+    Toast.fail('请登录用户')
+    router.push('/login')
+  }
   if (res.data.code !== undefined) {
     if (res.data.code === -1) {
       Toast.fail('请登录用户')

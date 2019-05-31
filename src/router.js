@@ -7,6 +7,7 @@ import Login from '@/views/login/Login'
 import Register from '@/views/register/Register'
 import Setting from '@/views/set/Setting'
 import BookDetail from '@/views/detail/BookDetail'
+import CategoryDetail from '@/views/category/CategoryDetail'
 
 Vue.use(Router)
 
@@ -49,6 +50,11 @@ export default new Router({
       path: '/detail/:id',
       name: 'detail',
       component: BookDetail
+    }, {
+      // 图书类别图书列表
+      path: '/category/:id',
+      name: 'category',
+      component: CategoryDetail
     }
   ]
 })

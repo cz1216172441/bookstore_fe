@@ -6,7 +6,7 @@
         v-for="(book, index) in books"
         :key="index"
         @click="goToBookDetail(book.id)">
-        <img class="elem-img" :src="mulUrlHandle(book.infoImg)" />
+        <img class="elem-img" :src="book.infoImg[0]" />
         <span class="elem-name">
           {{book.name}}
         </span>
@@ -29,19 +29,11 @@ export default {
     // 跳转到图书详情页
     goToBookDetail(id) {
       this.$router.push('/detail/' + id)
-    },
-
-    // 图片地址处理
-    mulUrlHandle(url) {
-      if (url.search(';')) {
-        return url.split(';')[0]
-      }
-      return url
     }
   }
 }
 </script>
-
+  
 <style lang="stylus" scoped>
   .home-book-panel
     width 100%

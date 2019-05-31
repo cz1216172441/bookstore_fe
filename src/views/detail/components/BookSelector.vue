@@ -57,7 +57,7 @@ export default {
       .selector-quantity
         height 100%
         line-height 2rem
-        font-size 14px
+        font-size 12px
         padding-left .4rem
         color #4c4c4c
       .selector-tag
