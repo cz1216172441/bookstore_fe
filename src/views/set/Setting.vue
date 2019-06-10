@@ -54,6 +54,14 @@
           </span>
       </van-cell>
       <van-cell>
+        <span class="head-title">收货地址</span>
+        <span class="head-img">
+          <van-icon class="head-arrow" 
+            name="arrow"
+            @click="goToAddress" />
+          </span>
+      </van-cell>
+      <van-cell>
         <span class="user-info">密保信息</span>  
       </van-cell>
       <van-cell>
@@ -140,7 +148,6 @@ export default {
         userNickname: this.nickname
       }
       user.alterUserDetail(params).then((res) => {
-        console.log(res)
         if (res.code === 0) {
           this.GET_USERINFO()
           Toast.success('修改成功', 1000)
@@ -157,6 +164,11 @@ export default {
       this.$refs.cropper.getCropData((data) => {
         console.log(data)
       })
+    },
+
+    // 进入地址页面
+    goToAddress() {
+      this.$router.push('/address')
     },
 
     // 自定义输入框双向数据绑定

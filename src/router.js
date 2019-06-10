@@ -8,8 +8,12 @@ import Register from '@/views/register/Register'
 import Setting from '@/views/set/Setting'
 import BookDetail from '@/views/detail/BookDetail'
 import CategoryDetail from '@/views/category/CategoryDetail'
+import Address from '@/views/address/Address'
+import AddressAdd from '@/views/address/AddressAdd'
 
 Vue.use(Router)
+
+const AddressEdit = () => import('@/views/address/AddressEdit')
 
 export default new Router({
   mode: 'history',
@@ -55,6 +59,19 @@ export default new Router({
       path: '/category/:id',
       name: 'category',
       component: CategoryDetail
+    }, {
+      // 收货地址列表
+      path: '/address',
+      name: 'address',
+      component: Address
+    }, {
+      path: '/address/add',
+      name: 'AddressAdd',
+      component: AddressAdd
+    }, {
+      path: '/address/edit/:id',
+      name: 'AddressEdit',
+      component: AddressEdit
     }
   ]
 })

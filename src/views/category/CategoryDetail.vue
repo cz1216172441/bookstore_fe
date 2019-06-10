@@ -9,6 +9,7 @@
     <home-category :category="secCategory"
       generation="sec"
       v-if="categoryStatus" />
+    <book-list :bookList="bookList" />
   </div>  
 </template>
 
@@ -16,13 +17,15 @@
 import HomeSelector from '@/common/components/HomeSeletor'
 import HomeCategory from '@/common/components/HomeCategory'
 import HomeSearchBox from '@/common/components/HomeSearchBox'
+import BookList from '@/common/components/BookList'
 import book from '@/common/api/book'
 export default {
   name: 'CategoryDetail',
   components: {
     HomeSearchBox,
     HomeSelector,
-    HomeCategory
+    HomeCategory,
+    BookList
   },
   data() {
     return {
@@ -30,7 +33,8 @@ export default {
       categoryStatus: false,
       cateStatus: true,
       secCategory: [],
-      loading: true
+      loading: true,
+      bookList: []
     }
   },
   created() {
@@ -82,6 +86,7 @@ export default {
       book.listBookByCategory(params).then((res) => {
         if (res.code === 0) {
           const data = res.data
+          this.bookList = data
           console.log(data)
         }
       })
