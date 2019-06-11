@@ -10,6 +10,7 @@ import BookDetail from '@/views/detail/BookDetail'
 import CategoryDetail from '@/views/category/CategoryDetail'
 import Address from '@/views/address/Address'
 import AddressAdd from '@/views/address/AddressAdd'
+import ShoppingCart from '@/views/cart/ShoppingCart'
 
 Vue.use(Router)
 
@@ -66,12 +67,21 @@ export default new Router({
       component: Address
     }, {
       path: '/address/add',
-      name: 'AddressAdd',
+      name: 'addressAdd',
       component: AddressAdd
     }, {
       path: '/address/edit/:id',
-      name: 'AddressEdit',
+      name: 'addressEdit',
       component: AddressEdit
+    }, {
+      path: '/shoppingCart',
+      name: 'shoppingCart',
+      component: ShoppingCart,
+      // 拦截url定位 -> 更新底部导航栏状态
+      beforeEnter: (to, from, next) => {
+        store.commit('SET_BSNAVBAR_STATUS', 2)
+        next()
+      }
     }
   ]
 })

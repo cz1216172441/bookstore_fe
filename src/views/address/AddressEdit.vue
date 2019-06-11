@@ -8,9 +8,11 @@
       :address-info="address"
       show-postal
       show-set-default
+      show-delete
       show-search-result
       save-button-text="保存"
       @save="onSave"
+      @delete="onDelete"
     />
   </div>  
 </template>
@@ -74,6 +76,22 @@ export default {
           this.$router.push("/address")
         } else {
           Toast("保存失败")
+        }
+      })
+    },
+
+    // 删除地址
+    onDelete(addressInfo) {
+      const id = this.$route.params.id
+      const params = {
+        receiverAddressId: id
+      }
+      address.deleteAddress(params).then(res => {
+        if (res.code === 0) {
+          Toast.success("删除成功")
+          this.$router.push("/address")
+        } else {
+          Toast("删除失败")
         }
       })
     }

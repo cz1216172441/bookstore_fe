@@ -10,7 +10,7 @@ const updateAddressUrl = "/address/api/v1/address/update"   // 更新地址
 
 const listAddressUrl = "/address/api/v1/address/list"       // 地址列表
 
-const getAddressUrl = "/address/api/v1/address/get"            // 获取地址
+const getAddressUrl = "/address/api/v1/address/get"         // 获取地址
 
 const deleteAddressUrl = "/address/api/v1/address/delete"   // 删除地址
 

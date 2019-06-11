@@ -54,8 +54,10 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-
+<style lang="stylus">
+  .van-button--danger
+    background linear-gradient(to right, rgba(253, 89, 113, .9), rgba(253, 138, 103, .9))
+    border 1px solid rgba(253, 138, 103, .9)
 </style>
 
 

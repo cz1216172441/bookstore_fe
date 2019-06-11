@@ -41,7 +41,7 @@ import BsButton from '@/common/components/BsButton'
 import { checkOutLoginParams } from '@/common/utils/check.js'
 import { mapGetters, mapMutations } from 'vuex'
 import user from '@/common/api/user'
-import { Toast } from 'vant';
+import { Toast } from 'vant'
 export default {
   name: 'Login',
   components: {
